@@ -70,8 +70,8 @@ The baseline accuracies and reference accuracies were:-
      | Language |    Baseline    |    Reference   |
      |  :----:  |     :----:     |      :---:     |
      | English  | 0.842365317182 | 0.887910423972 |
-     | Chinese  | 0.838827838828 | 0.869547119547 |
-     | Hindi    | 0.858171041490 | 0.924188540785 |
+     | Chinese  | 0.838827838828 | 0.869547119547 |
+     | Hindi    | 0.858171041490 | 0.924188540785 |
      
 
 Here the baseline model assigns the most common tags to words, and the reference model uses the viterbi algorithm and smoothing techniques to make more accurate part of speech tagging of sentences.
@@ -88,7 +88,6 @@ zh : 10928(correct word-tags) / 12663(total words)
 
 
 ```python3
-
     def smoothing(self, tag_tag, transition_tag_count, unique_tags):
         smooth_tag = []
         unique_tag_length = len(unique_tags)
@@ -120,8 +119,8 @@ zh : 10928(correct word-tags) / 12663(total words)
 
 Number of correctly tagged words (development dataset) are:- 
 
-    | Parameter 1 | Parameter 2| English | Chinese |
-    |   :----:    |   :----:   |  :---:  |  :---:  |
+    | Parameter 1 | Parameter 2 | English | Chinese |
+    |   :----:    |   :----:    |  :---:  |  :---:  |
     | 1.00 | 1.0 | 22108 | 10914 |
     | 0.70 | 2.0 | 22114 | 10923 |
     | 0.70 | 2.5 | 22112 | 10928 |
@@ -151,4 +150,4 @@ Number of correctly tagged words (development dataset) are:-
 
 Laplace Smoothing is a standard smoothing technique. 
 
-**By comparing my results of 1-5 laplace smoothing(bold) to other paramter options, I observe that it produces results closest to reference results (for English and Chinese) and also aces Hindi**
+By comparing my results of 1-5 laplace smoothing(bold) to other paramter options, I observe that it produces results closest to reference results (for English and Chinese) and also aces Hindi
