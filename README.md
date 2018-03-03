@@ -11,7 +11,7 @@
  
 Credits to the the datasets can be found in CREDITS.md
 
-## Implemenation
+## Implementation
 
 The training model calculates transition and emission probabilities for a training dataset.
 
