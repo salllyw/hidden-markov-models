@@ -95,9 +95,9 @@ zh: 10928
 
 Number of correctly tagged words (development dataset) are:- 
 ----
-     Parameter 1     |     Parameter 2     | English | Chinese. 
-    :-----------:    |   :-------------:   |  :----: |  :----:  
-0.70|3.0|22114|10940
+    |   Parameter 1     |     Parameter 2     | English | Chinese. |
+    |  :-----------:    |   :-------------:   |  :---:  |  :----:  |
+| 0.70 | 3.0 | 22114 | 10940 |
 0.80|3.0|22113|10938
 0.30|3.0|22116|10941
 0.50|3.0|22114|10941
