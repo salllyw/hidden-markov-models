@@ -15,13 +15,13 @@ Credits to the the datasets can be found in CREDITS.md
 
 The training model calculates transition and emission probabilities for a training dataset.
 
-My model uses Add-1-Smoothing aka [Additive/Laplace Smoothing](https://en.wikipedia.org/wiki/Additive_smoothing) 
+My model uses a variation of Add-1-Smoothing aka [Additive/Laplace Smoothing](https://en.wikipedia.org/wiki/Additive_smoothing) 
 
 (I have tested some other parametric smoothing techniques, please see the inferences section)
 
 After parsing through the entire training dataset, my model performs transition smoothing.
 
-All transitions between tag1->tag2 that have not been observed, are smoothened using Add-1-Smoothing.
+All transitions between tag1->tag2 that have not been observed, are smoothened using smoothing.
 
 The test model evaluates which tag most suits a word in the raw dataset.
 
@@ -66,11 +66,13 @@ Hindi (hi)    0.924188540785
 
 The baseline accuracies and reference accuracies were:-
 
-     | Language | Baseline | Reference |
-     |  :----:  |  :----:  |   :---:   |
-     | English  |0.842365317182|0.887910423972|
-     | Chinese  |0.838827838828|0.869547119547|
-     | Hindi    |0.858171041490|0.924188540785|
+
+     | Language |    Baseline    |    Reference   |
+     |  :----:  |     :----:     |      :---:     |
+     | English  | 0.842365317182 | 0.887910423972 |
+     | Chinese  | 0.838827838828 | 0.869547119547 |
+     | Hindi    | 0.858171041490 | 0.924188540785 |
+     
 
 Here the baseline model assigns the most common tags to words, and the reference model uses the viterbi algorithm and smoothing techniques to make more accurate part of speech tagging of sentences.
 
@@ -80,19 +82,10 @@ By comparing the accuracies, we see that my model is at par with the reference m
 
 The following enlist my observations and inferences from implementing different smoothing parameters
 
-Total number of words in development data tested using a model trained on the training dataset:-
+en : 22135(correct word-tags) / 25148(total words)
 
-en : 25148
+zh : 10928(correct word-tags) / 12663(total words)
 
-zh : 12663
-
-Reference correct tags count:- 
-
-(Number of correctly tagged words according to reference accuracies for a model trained on the training dataset for the two languages)
-
-en: 22135
-
-zh: 10928
 
 ```python3
 
@@ -158,4 +151,4 @@ Number of correctly tagged words (development dataset) are:-
 
 Laplace Smoothing is a standard smoothing technique. 
 
-**By comparing my results for laplace smoothing(bold) to other paramter options, I observe that it produces results closest to reference results for English and Chinese.**
+**By comparing my results of 1-5 laplace smoothing(bold) to other paramter options, I observe that it produces results closest to reference results (for English and Chinese) and also aces Hindi**
