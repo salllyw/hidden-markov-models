@@ -15,3 +15,5 @@ The coding assignment corpus is licensed under the same terms as the original:
 The English portion is licensed under Creative Commons Attribution-ShareAlike 4.0 International: http://creativecommons.org/licenses/by-sa/4.0
 
 The Chinese portion is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International: http://creativecommons.org/licenses/by-nc-sa/4.0
+
+
