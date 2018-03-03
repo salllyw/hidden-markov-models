@@ -65,18 +65,20 @@ Hindi (hi)    0.924188540785
            
 
 The baseline accuracies and reference accuracies were:-
-                  Baseline                  Reference
-English:    0.842365317182              0.887910423972
-Chinese:    0.838827838828              0.869547119547
-Hindi:      0.85817104149               0.924188540785
+
+     | Language | Baseline | Reference |
+     |  :----:  |  :----:  |   :---:   |
+     | English  |0.842365317182|0.887910423972|
+     | Chinese  |0.838827838828|0.869547119547|
+     | Hindi    |0.858171041490|0.924188540785|
 
 Here the baseline model assigns the most common tags to words, and the reference model uses the viterbi algorithm and smoothing techniques to make more accurate part of speech tagging of sentences.
 
-From the comparison, we can see that my model is at par with the reference model, and only falls short in English by 0.000079693976
+By comparing the accuracies, we see that my model is at par with the reference model, and only falls short in English by 0.000079693976
 
 ## Inferences
 
-The following enlist some observations and my inferences from implementing the Viterbi Algorithm and HMMs
+The following enlist my observations and inferences from implementing different smoothing parameters
 
 Total number of words in development data tested using a model trained on the training dataset:-
 
@@ -92,30 +94,62 @@ en: 22135
 
 zh: 10928
 
+```python3
+
+    def smoothing(self, tag_tag, transition_tag_count, unique_tags):
+        smooth_tag = []
+        unique_tag_length = len(unique_tags)
+        
+        for tag1 in unique_tags:
+            if tag1 != 'STOP':  # because stop is the end point
+                if tag1 in tag_tag: # transitions from tag1 already exist
+                    for tag2 in unique_tags:
+                        if tag2 == 'START':
+                            continue
+                        if tag1 == 'START' and tag2 == 'STOP':
+                            continue
+                        if tag2 in tag_tag[tag1]:
+                            tag_tag[tag1][tag2] += Parameter1
+                        else:
+                            tag_tag[tag1][tag2] = Parameter1
+                else:
+                    tag_tag[tag1] = {}
+                    transition_tag_count[tag1] = 0
+                    for tag2 in unique_tags:
+                        if tag2 == 'START':
+                            continue
+                        if tag1 == 'START' and tag2 == 'STOP':
+                            continue
+                        tag_tag[tag1][tag2] = Parameter1
+                transition_tag_count[tag1] += Parameter2*unique_tag_length
+         return tag_tag, transition_tag_count
+```
 
 Number of correctly tagged words (development dataset) are:- 
-----
-    |   Parameter 1     |     Parameter 2     | English | Chinese. |
-    |  :-----------:    |   :-------------:   |  :---:  |  :----:  |
-| 0.70 | 3.0 | 22114 | 10940 |
-0.80|3.0|22113|10938
-0.30|3.0|22116|10941
-0.50|3.0|22114|10941
-0.55|3.0|22114|10940
-|0.65|3.0|22116|10941|
-|0.70|3.5|22116|10941|
-|0.60|3.5|22116|10941|
-|0.60|4.0|22117|10940|
-|**1.00|1.0|22138|10928**|
-|0.70|2.0|22114|10923|
-|0.70|2.5|22112|10928|
-|0.60|5.0|22118|10938|
-|0.70|5.0|22120|10938|
-|0.70|5.5|22116|10938|
-|0.80|5.0|22119|10936|
-|0.80|6.0|22109|10937|
-|0.90|6.0|22109|10936|
-|1.00|6.0|22109|10936|
+
+    | Parameter 1 | Parameter 2| English | Chinese |
+    |   :----:    |   :----:   |  :---:  |  :---:  |
+    | 1.00 | 1.0 | 22108 | 10914 |
+    | 0.70 | 2.0 | 22114 | 10923 |
+    | 0.70 | 2.5 | 22112 | 10928 |
+    | 0.50 | 3.0 | 22114 | 10941 |
+    | 0.55 | 3.0 | 22114 | 10940 |
+    | 0.60 | 3.0 | 22116 | 10941 |
+    | 0.65 | 3.0 | 22116 | 10941 |
+    | 0.70 | 3.0 | 22114 | 10940 |
+    | 0.80 | 3.0 | 22113 | 10938 |
+    | 0.70 | 3.5 | 22116 | 10941 |
+    | 0.60 | 3.5 | 22116 | 10941 |
+    | 0.60 | 4.0 | 22117 | 10940 |
+    | 0.60 | 5.0 | 22118 | 10938 |
+    | 0.70 | 5.0 | 22120 | 10938 |
+    | 0.80 | 5.0 | 22119 | 10936 |
+    | **1.00 | 5.0 | 22138 |10928** |
+    | 0.70 | 5.5 | 22116 | 10938 |
+    | 0.80 | 6.0 | 22109 | 10937 |
+    | 0.90 | 6.0 | 22109 | 10936 |
+    | 1.00 | 6.0 | 22109 | 10936 |
+    
 
 
 **I see that on increasing Parameter2, number of correct tags for Chinese increases**
