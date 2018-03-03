@@ -145,6 +145,7 @@ Number of correctly tagged words (development dataset) are:-
 
 **Where as on increasing Parameter1, number of correct tags for English increases**
 
+## Conclusion
 Laplace Smoothing is a standard smoothing technique. 
 
 By comparing my results of 1-5 laplace smoothing(bold) to other paramter options, I observe that it produces results closest to reference results (for English and Chinese) and also aces Hindi
