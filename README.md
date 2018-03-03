@@ -1,33 +1,37 @@
 # Hidden Markov Models
- Hidden Markov Models or hmms can be used to Part of Speech Tagging. Here's an implementation.
+ Hidden Markov Models or hmms can be used for Part of Speech Tagging. 
+ 
+ Here's an implementation.
  
  The algorithm uses hmm to learn a training dataset with the following specifications:-
  
- word/tag - represents the part of speech tag assigned to every word.
+ *word/tag* - represents the part of speech tag assigned to every word.
  
- each word/tag is separated by a space and each sentence in the corpus, is on a new line.
+ each *word/tag* is separated by a space and each sentence in the corpus, is on a new line.
  
-Credits to the the datasets can be found in credits.txt
+Credits to the the datasets can be found in CREDITS.md
 
 ## Implemenation
 
-The training model calculates transition and emission probabilities for the training data.
+The training model calculates transition and emission probabilities for a training dataset.
 
-My code uses Add-1-Smoothing aka [Laplace Smoothing](https://en.wikipedia.org/wiki/Additive_smoothing) 
+My model uses Add-1-Smoothing aka [Additive/Laplace Smoothing](https://en.wikipedia.org/wiki/Additive_smoothing) 
 
 (I have tested some other parametric smoothing techniques, please see the inferences section)
 
 After parsing through the entire training dataset, my model performs transition smoothing.
 
-Any transitions between tag1->tag2 that has not been observed is smoothened using the Add-1-Smoothing technique.
+All transitions between tag1->tag2 that have not been observed, are smoothened using Add-1-Smoothing.
 
 The test model evaluates which tag most suits a word in the raw dataset.
 
-For words never encountered before, emission smoothing is done by assigning equal probability all unique tags, ie. for word->tag such that the training hmm has never seen 'word' before, for all tag in uniqu_tags , probability of word/tag is equal (can be set to -log(l) if using log probabilities, or 1/l where l=count(unique_tags)
+For words never encountered before, emission smoothing is done by assigning equal probability all unique tags.
+
+ie. for *word->tag* such that the training hmm has never seen 'word' before, for all tag in unique_tags , probability of *word/tag* is equal (can be set to -log(l) if using log probabilities, or 1/l where l=count(unique_tags))
 
 ## Code
 
-`hmmlearn.py` 
+**hmmlearn.py**
 
 Training model for the HMM. 
 
@@ -35,7 +39,7 @@ Writes the model parameters like transition probabilities, emission probabilites
 
 ``` python3 hmmlearn.py /path/to/train/data```
 
-`hmmdecode.py`
+**hmmdecode.py**
 
 Testing of HMM. 
 
@@ -43,7 +47,7 @@ Tests raw (test) data using parameters from hmmmodel.json and traces the best ta
 
 ``` python3 hmmdecode.py /path/to/test/data```
 
-`hmmcompare.py`
+**hmmcompare.py**
 
 Evaluates the accuracy of HMM against tagged (test) data
 
@@ -90,13 +94,14 @@ zh: 10928
 
 
 Number of correctly tagged words (development dataset) are:- 
-|     Parameter 1     |     Parameter 2     | English | Chinese. |
-|    :-----------:    |   :-------------:   |  :----: |  :----:  |
-|0.70|3.0|22114|10940|
-|0.80|3.0|22113|10938|
-|0.30|3.0|22116|10941|
-|0.50|3.0|22114|10941|
-|0.55|3.0|22114|10940|
+----
+     Parameter 1     |     Parameter 2     | English | Chinese. 
+    :-----------:    |   :-------------:   |  :----: |  :----:  
+0.70|3.0|22114|10940
+0.80|3.0|22113|10938
+0.30|3.0|22116|10941
+0.50|3.0|22114|10941
+0.55|3.0|22114|10940
 |0.65|3.0|22116|10941|
 |0.70|3.5|22116|10941|
 |0.60|3.5|22116|10941|
@@ -113,10 +118,10 @@ Number of correctly tagged words (development dataset) are:-
 |1.00|6.0|22109|10936|
 
 
-I see that on increasing Parameter2, number of correct tags for Chinese increases
+**I see that on increasing Parameter2, number of correct tags for Chinese increases**
 
-Where as on increasing Parameter1, number of correct tags for English increases
+**Where as on increasing Parameter1, number of correct tags for English increases**
 
 Laplace Smoothing is a standard smoothing technique. 
 
-By comparing my results for laplace smoothing(bold) to other paramter options, I observe that it produces results closest to reference results for English and Chinese.
+**By comparing my results for laplace smoothing(bold) to other paramter options, I observe that it produces results closest to reference results for English and Chinese.**
